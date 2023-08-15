@@ -1,6 +1,9 @@
 package com.example.userposts.controller;
 
+import com.example.userposts.dto.IncomingFriendsDTO;
+import com.example.userposts.dto.OutgoingFriendsDTO;
 import com.example.userposts.dto.UserDTO;
+import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.service.UsersService;
 import com.example.userposts.util.ErrorResponse;
@@ -34,6 +37,22 @@ public class UsersController {
         return convertToUserDTO(optUser.orElseThrow(() -> new UserNotFoundException(id)));
     }
 
+    @GetMapping("/{id}/friends/incoming")
+    public List<IncomingFriendsDTO> getIncomingFriendRequests(@PathVariable("id") String id) {
+        Optional<User> optUser = usersService.getUserById(id);
+        User user = optUser.orElseThrow(() -> new UserNotFoundException(id));
+        List<Friends> incoming = user.getIncoming();
+        return incoming.stream().map(this::convertToIncomingFriendsDTO).toList();
+    }
+
+    @GetMapping("/{id}/friends/outgoing")
+    public List<OutgoingFriendsDTO> getOutgoingFriendRequests(@PathVariable("id") String id) {
+        Optional<User> optUser = usersService.getUserById(id);
+        User user = optUser.orElseThrow(() -> new UserNotFoundException(id));
+        List<Friends> incoming = user.getOutgoing();
+        return incoming.stream().map(this::convertToOutgoingFriendsDTO).toList();
+    }
+
     @ExceptionHandler
     public ErrorResponse handleException(UserNotFoundException e) {
         String message = "User with id " + e.getUserId() + " not found";
@@ -42,5 +61,13 @@ public class UsersController {
 
     private UserDTO convertToUserDTO(User user) {
         return modelMapper.map(user, UserDTO.class);
+    }
+
+    private IncomingFriendsDTO convertToIncomingFriendsDTO(Friends friends) {
+        return modelMapper.map(friends, IncomingFriendsDTO.class);
+    }
+
+    private OutgoingFriendsDTO convertToOutgoingFriendsDTO(Friends friends) {
+        return modelMapper.map(friends, OutgoingFriendsDTO.class);
     }
 }

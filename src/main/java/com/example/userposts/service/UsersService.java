@@ -1,5 +1,6 @@
 package com.example.userposts.service;
 
+import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.repository.UsersRepository;
 import org.springframework.stereotype.Service;

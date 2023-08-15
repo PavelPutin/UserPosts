@@ -1,16 +1,15 @@
 package com.example.userposts.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.validator.constraints.UUID;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Column(name = "user_id")
     @Id
@@ -19,6 +18,12 @@ public class User {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @OneToMany(mappedBy = "whoShouldAccept")
+    private List<Friends> incoming;
+
+    @OneToMany(mappedBy = "whoAdd")
+    private List<Friends> outgoing;
 
     public User() {
     }
@@ -42,6 +47,22 @@ public class User {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<Friends> getIncoming() {
+        return incoming;
+    }
+
+    public void setIncoming(List<Friends> incoming) {
+        this.incoming = incoming;
+    }
+
+    public List<Friends> getOutgoing() {
+        return outgoing;
+    }
+
+    public void setOutgoing(List<Friends> outgoing) {
+        this.outgoing = outgoing;
     }
 
     @Override
