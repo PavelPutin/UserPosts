@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.UUID;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "users")
@@ -63,6 +64,19 @@ public class User implements Serializable {
 
     public void setOutgoing(List<Friends> outgoing) {
         this.outgoing = outgoing;
+    }
+
+    @Transient
+    public List<User> getFriends() {
+        List<User> friends = new java.util.ArrayList<>(incoming.stream()
+                .filter(Friends::isAccepted)
+                .map(Friends::getWhoAdd)
+                .toList());
+        Stream<User> outgoingFriendsStream= outgoing.stream()
+                .filter(Friends::isAccepted)
+                .map(Friends::getWhoShouldAccept);
+        friends.addAll(outgoingFriendsStream.toList());
+        return friends;
     }
 
     @Override

@@ -53,6 +53,11 @@ public class UsersController {
         return incoming.stream().map(this::convertToOutgoingFriendsDTO).toList();
     }
 
+    @GetMapping("/{id}/friends")
+    public List<UserDTO> getFriends(@PathVariable("id") String id) {
+        return usersService.getUserFriendsById(id).stream().map(this::convertToUserDTO).toList();
+    }
+
     @ExceptionHandler
     public ErrorResponse handleException(UserNotFoundException e) {
         String message = "User with id " + e.getUserId() + " not found";

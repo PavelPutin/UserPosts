@@ -3,6 +3,7 @@ package com.example.userposts.service;
 import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.repository.UsersRepository;
+import com.example.userposts.util.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,5 +24,11 @@ public class UsersService {
 
     public Optional<User> getUserById(String id) {
         return usersRepository.findById(id);
+    }
+
+    public List<User> getUserFriendsById(String id) {
+        Optional<User> optUser = usersRepository.findById(id);
+        User user = optUser.orElseThrow(() -> new UserNotFoundException(id));
+        return user.getFriends();
     }
 }
