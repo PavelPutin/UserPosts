@@ -1,8 +1,8 @@
 package com.example.userposts.controller;
 
-import com.example.userposts.dto.IncomingFriendsDTO;
-import com.example.userposts.dto.OutgoingFriendsDTO;
-import com.example.userposts.dto.UserDTO;
+import com.example.userposts.dto.response.IncomingFriendsDTO;
+import com.example.userposts.dto.response.OutgoingFriendsDTO;
+import com.example.userposts.dto.response.UserDTO;
 import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.service.UsersService;

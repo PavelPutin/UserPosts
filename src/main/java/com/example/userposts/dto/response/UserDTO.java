@@ -1,4 +1,4 @@
-package com.example.userposts.dto;
+package com.example.userposts.dto.response;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.UUID;
