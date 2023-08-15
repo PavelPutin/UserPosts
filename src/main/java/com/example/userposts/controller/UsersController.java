@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UsersController {
     private final UsersService usersService;
     private final ModelMapper modelMapper;
