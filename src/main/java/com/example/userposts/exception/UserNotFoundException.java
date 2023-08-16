@@ -1,9 +1,12 @@
-package com.example.userposts.util;
+package com.example.userposts.exception;
 
-public class UserNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UserNotFoundException extends AppException {
     private String userId;
 
     public UserNotFoundException(String userId) {
+        super("User with id " + userId + " not found", HttpStatus.NOT_FOUND);
         this.userId = userId;
     }
 

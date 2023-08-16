@@ -1,9 +1,8 @@
 package com.example.userposts.service;
 
-import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.repository.UsersRepository;
-import com.example.userposts.util.UserNotFoundException;
+import com.example.userposts.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -6,8 +6,7 @@ import com.example.userposts.dto.response.UserDTO;
 import com.example.userposts.model.Friends;
 import com.example.userposts.model.User;
 import com.example.userposts.service.UsersService;
-import com.example.userposts.util.ErrorResponse;
-import com.example.userposts.util.UserNotFoundException;
+import com.example.userposts.exception.UserNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,12 +55,6 @@ public class UsersController {
     @GetMapping("/{id}/friends")
     public List<UserDTO> getFriends(@PathVariable("id") String id) {
         return usersService.getUserFriendsById(id).stream().map(this::convertToUserDTO).toList();
-    }
-
-    @ExceptionHandler
-    public ErrorResponse handleException(UserNotFoundException e) {
-        String message = "User with id " + e.getUserId() + " not found";
-        return new ErrorResponse(message, LocalDateTime.now());
     }
 
     private UserDTO convertToUserDTO(User user) {
