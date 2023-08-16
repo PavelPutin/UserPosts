@@ -34,14 +34,12 @@ public class User implements Serializable {
 
     @Transient
     public List<User> getFriends() {
-        List<User> friends = new java.util.ArrayList<>(incoming.stream()
+        Stream<User> incomingFriendsStream = incoming.stream()
                 .filter(Friends::isAccepted)
-                .map(Friends::getWhoAdd)
-                .toList());
+                .map(Friends::getWhoAdd);
         Stream<User> outgoingFriendsStream= outgoing.stream()
                 .filter(Friends::isAccepted)
                 .map(Friends::getWhoShouldAccept);
-        friends.addAll(outgoingFriendsStream.toList());
-        return friends;
+        return Stream.concat(incomingFriendsStream, outgoingFriendsStream).toList();
     }
 }
