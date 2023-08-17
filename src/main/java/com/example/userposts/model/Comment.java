@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity(name = "comments")
 @Data
 public class Comment {
@@ -31,4 +33,16 @@ public class Comment {
     @NotEmpty(message = "Comment should not be empty")
     @Size(max = 255, message = "Comment should contain less than 256 characters.")
     private String body;
+
+    @ManyToMany
+    @JoinTable(
+            name = "comment_likes",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> likes;
+
+    @Transient
+    public int getLikesNumber() {
+        return likes.size();
+    }
 }
