@@ -10,5 +10,6 @@ public class PostDTO {
     private String body;
     private UserDTO author;
     private int likesNumber;
+    private List<PostTagDTO> postTag;
     private List<CommentForParticularPostDTO> comments;
 }

@@ -10,12 +10,12 @@ import java.io.Serializable;
 public class Friends implements Serializable {
     @Id
     @ManyToOne
-    @JoinColumn(name = "who_add_user_id")
+    @JoinColumn(name = "who_add_user_id", referencedColumnName = "user_id")
     private User whoAdd;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "who_should_accept_user_id")
+    @JoinColumn(name = "who_should_accept_user_id", referencedColumnName = "user_id")
     private User whoShouldAccept;
 
     @Column(name = "is_accept")

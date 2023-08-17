@@ -8,12 +8,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "posts")
 @Data
 @NoArgsConstructor
-public class Post {
+public class Post implements Serializable {
     @Column(name = "post_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +43,9 @@ public class Post {
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> likes;
+
+    @OneToMany(mappedBy = "post")
+    private List<PostTag> postTag;
 
     @Transient
     public int getLikesNumber() {
