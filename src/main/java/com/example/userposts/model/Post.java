@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity(name = "posts")
 @Data
 @NoArgsConstructor
@@ -30,4 +32,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author", referencedColumnName = "user_id")
     private User author;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }

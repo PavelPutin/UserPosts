@@ -5,9 +5,7 @@ import com.example.userposts.dto.response.PostsListDTO;
 import com.example.userposts.model.Post;
 import com.example.userposts.service.PostsService;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/posts")

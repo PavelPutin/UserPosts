@@ -35,6 +35,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
     @Transient
     public List<User> getFriends() {
         Stream<User> incomingFriendsStream = incoming.stream()
