@@ -5,8 +5,8 @@ import lombok.*;
 import org.hibernate.validator.constraints.UUID;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 @Entity(name = "users")
@@ -31,6 +31,9 @@ public class User implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Friends> outgoing;
+
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
 
     @Transient
     public List<User> getFriends() {
