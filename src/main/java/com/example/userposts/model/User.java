@@ -41,6 +41,9 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "likes")
     private List<Comment> likedComments;
 
+    @ManyToMany(mappedBy = "likes")
+    private List<Post> likedPosts;
+
     @Transient
     public List<User> getFriends() {
         Stream<User> incomingFriendsStream = incoming.stream()
